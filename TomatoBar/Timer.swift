@@ -11,6 +11,7 @@ class TBTimer: ObservableObject {
     @AppStorage("workIntervalsInSet") var workIntervalsInSet = 4
     // This preference is "hidden"
     @AppStorage("overrunTimeLimit") var overrunTimeLimit = -60.0
+    @AppStorage("focusModeEnabled") var focusModeEnabled = false
 
     private var stateMachine = TBStateMachine(state: .idle)
     public let player = TBPlayer()
@@ -180,6 +181,7 @@ class TBTimer: ObservableObject {
         player.playWindup()
         player.startTicking()
         startTimer(seconds: workIntervalLength * 60)
+        if focusModeEnabled { runFocusShortcut(enable: true) }
     }
 
     private func onWorkFinish(context _: TBStateMachine.Context) {
@@ -225,5 +227,18 @@ class TBTimer: ObservableObject {
         stopTimer()
         TBStatusItem.shared.setIcon(name: .idle)
         consecutiveWorkIntervals = 0
+        if focusModeEnabled { runFocusShortcut(enable: false) }
+    }
+
+    private func runFocusShortcut(enable: Bool) {
+        let name = enable ? "TomatoBar Focus On" : "TomatoBar Focus Off"
+        let process = Process()
+        process.executableURL = URL(fileURLWithPath: "/usr/bin/shortcuts")
+        process.arguments = ["run", name]
+        try? process.run()
+    }
+
+    func setupFocusShortcuts() {
+        NSWorkspace.shared.open(URL(string: "shortcuts://")!)
     }
 }

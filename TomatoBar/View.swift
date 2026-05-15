@@ -83,6 +83,11 @@ private struct SettingsView: View {
                                        comment: "Launch at login label"))
                     .frame(maxWidth: .infinity, alignment: .leading)
             }.toggleStyle(.switch)
+            Toggle(isOn: $timer.focusModeEnabled) {
+                Text(NSLocalizedString("SettingsView.focusModeEnabled.label",
+                                       comment: "Focus mode label"))
+                    .frame(maxWidth: .infinity, alignment: .leading)
+            }.toggleStyle(.switch)
             Spacer().frame(minHeight: 0)
         }
         .padding(4)

@@ -20,7 +20,7 @@ Have you ever heard of Pomodoro? It’s a great technique to help you keep track
 TomatoBar is world's neatest Pomodoro timer for the macOS menu bar. All the essential features are here - configurable
 work and rest intervals, optional sounds, discreet actionable notifications, global hotkey.
 
-TomatoBar is fully sandboxed with no entitlements.
+TomatoBar runs without sandboxing to support system integrations such as Focus mode.
 
 Download the latest release <a href="https://github.com/ivoronin/TomatoBar/releases/latest/">here</a> or install using Homebrew:
 ```
@@ -31,6 +31,20 @@ If the app doesn't start, install using the `--no-quarantine` flag:
 ```
 $ brew install --cask --no-quarantine tomatobar
 ```
+
+## Focus Mode
+TomatoBar can automatically enable macOS Focus when a Pomodoro work session starts and disable it when the session ends. Focus stays on during rest breaks.
+
+Enable it in the **Settings** tab by turning on **Enable Focus during Pomodoro**.
+
+Before enabling this feature, create two shortcuts in the macOS **Shortcuts** app:
+
+1. Open Shortcuts → click **+** → name it **`TomatoBar Focus On`**
+   - Add action: **Set Focus** → Turn → [your Focus mode] → **On**
+2. Create another shortcut named **`TomatoBar Focus Off`**
+   - Add action: **Set Focus** → Turn → [your Focus mode] → **Off**
+
+The names must match exactly. Once created, toggle **Enable Focus during Pomodoro** in TomatoBar's Settings tab and Focus will be managed automatically.
 
 ## Integration with other tools
 ### Event log
